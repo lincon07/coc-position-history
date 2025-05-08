@@ -1,0 +1,11 @@
+// server/tsconfig.server.json
+{
+    "compilerOptions": {
+      "target": "es6",
+      "module": "commonjs",
+      "esModuleInterop": true,
+      "outDir": "./dist"
+    },
+    "include": ["./**/*.ts"]
+  }
+  
