@@ -17,6 +17,14 @@ const Auth = () => {
           }
         })
       }
+
+      const continueAsGuest = async () => {
+        // delete data 
+        localStorage.removeItem("sb-sermwxknthscfmbyvasf-auth-token")
+
+        // redirect to home
+        nav("/home")
+      }
     return (
         <Stack direction={'column'} alignItems={'center'} justifyContent={'center'} spacing={10} >
             <ReusableNavbar
@@ -43,7 +51,7 @@ const Auth = () => {
                     <Divider />
                     <CardFooter style={{display: 'flex', flexDirection: 'row', gap: 10}}>
                         <Button variant="shadow" color="success" onPress={signInWithDiscord}>Login</Button>
-                        <Button onPress={() => {nav("/home")}}>Continue as guest</Button>
+                        <Button onPress={continueAsGuest}>Continue as guest</Button>
                     </CardFooter>
                 </Card>
             </Stack>

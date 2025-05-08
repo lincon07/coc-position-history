@@ -14,13 +14,18 @@ import useAuth from "@/hooks/useAuth";
 import { useEffect } from "react";
 import { useNavbar } from "@heroui/navbar";
 import { useNavigate } from "react-router-dom";
+import useData from "@/hooks/useData";
 
 
 const Home = () => {
-    const { currentMember } = useAuth()
+    const { currentMember, handleFetchCurrentMember } = useAuth()
     const nav = useNavigate()
+    const { } = useData()
 
     const roles = ["Viewer", "Editor", "Owner"]
+    useEffect(() => {
+        handleFetchCurrentMember
+    }, [])
     return (
         <Stack direction={'column'} height={'100vh'} width={'100vw'} overflow={'auto'}>
             <ReusableNavbar
@@ -39,7 +44,7 @@ const Home = () => {
                                     Settings
                                 </DropdownItem>
                                 {currentMember?.role && roles.indexOf(currentMember.role) >= 1 && (
-                                    <DropdownItem color="danger" key="admin-portal" startContent={<AdminPanelSettingsOutlined fontSize="inherit" />} onPress={() => {nav("/admin-portal")}}>
+                                    <DropdownItem color="danger" key="admin-portal" startContent={<AdminPanelSettingsOutlined fontSize="inherit" />} onPress={() => { nav("/admin-portal") }}>
                                         Administrative Portal
                                     </DropdownItem>
                                 )}

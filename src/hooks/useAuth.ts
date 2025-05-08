@@ -33,7 +33,7 @@ const useAuth = () => {
             .on(
                 'postgres_changes',
                 { event: '*', schema: 'public', table: 'coc-members' },
-                (payload) => {
+                () => {
                     handleFetchCurrentMember()
                 }
             )
@@ -51,6 +51,7 @@ const useAuth = () => {
 
     return {
         currentMember,
+        handleFetchCurrentMember
     }
 }
 
