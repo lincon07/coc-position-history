@@ -47,7 +47,7 @@ const Members = () => {
                 { event: '*', schema: 'public', table: 'coc-members' },
                 (payload) => {
                     console.log('Change received!', payload)
-                    handleFetchMembers()
+                    handleFetchMembers() 
                 }
             )
             .subscribe()
