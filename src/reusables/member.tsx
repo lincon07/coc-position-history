@@ -57,7 +57,7 @@ const Members = () => {
             <Stack style={{ display: "flex", flexDirection: 'row', justifyContent: 'center', flexWrap: 'wrap', gap: 30 }}>
                 {
                     members?.filter((member) => member?.currentRank?.community === "Administration")
-                        .map((member, index) => {
+                        .map((member, _index) => {
                             return (
                                 <Card
                                     isPressable
@@ -107,9 +107,9 @@ const Members = () => {
             <Typography alignSelf={'center'} fontFamily={"josefin sans"} fontSize={30} fontWeight={600}>Communications Senior Staff</Typography>
             <Stack style={{ display: "flex", flexDirection: 'row', justifyContent: 'center', flexWrap: 'wrap', gap: 30 }}>
                 {
-                    members?.filter((member, index, self) =>
+                    members?.filter((_member, index, self) =>
                         index === self.findIndex((m) => m.currentRank.community === "Senior Staff")
-                    ).map((member, index) => {
+                    ).map((member, _index) => {
                         return (
                             <Card
                                 isPressable
