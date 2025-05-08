@@ -39,6 +39,25 @@ const Members = () => {
     }, [])
 
 
+    useEffect(() => {
+        const channelB = supabase
+            .channel('schema-db-changes')
+            .on(
+                'postgres_changes',
+                { event: '*', schema: 'public', table: 'coc-members' },
+                (payload) => {
+                    console.log('Change received!', payload)
+                    handleFetchMembers()
+                }
+            )
+            .subscribe()
+
+        return () => {
+            supabase.removeChannel(channelB)
+        }
+    }, [])
+
+
     function convertDaysToYearsAndDays(totalDays: number): string {
         const years = Math.floor(totalDays / 365);
         const days = totalDays % 365;
