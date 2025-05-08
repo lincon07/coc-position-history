@@ -1,7 +1,7 @@
 import ReusableNavbar from "@/reusables/reusable-navbar"
 import { Stack } from "@mui/material"
 import { Button } from "@heroui/button"
-import { MoreVertOutlined, SettingsOutlined } from '@mui/icons-material';
+import { AdminPanelSettings, AdminPanelSettingsOutlined, MoreVertOutlined, SettingsOutlined } from '@mui/icons-material';
 import {
     Dropdown,
     DropdownTrigger,
@@ -10,18 +10,19 @@ import {
 } from "@heroui/dropdown";
 import "../index.css"
 import Members from "@/reusables/member";
+import useAuth from "@/hooks/useAuth";
+import { useEffect } from "react";
+import { useNavbar } from "@heroui/navbar";
+import { useNavigate } from "react-router-dom";
 
 
 const Home = () => {
+    const { currentMember } = useAuth()
+    const nav = useNavigate()
 
-    const handleTest = async () => {
-        const res = await fetch("http://localhost:5000/api/sheets-data");
-        const data = await res.json();
-        console.log("Google Sheets data:", data);
-    };
-
+    const roles = ["Viewer", "Editor", "Owner"]
     return (
-        <Stack direction={'column'} height={'100vh'} width={'100vw'}  overflow={'auto'}>
+        <Stack direction={'column'} height={'100vh'} width={'100vw'} overflow={'auto'}>
             <ReusableNavbar
                 contents={[
                     <Stack direction={'row'} spacing={2}>
@@ -34,12 +35,14 @@ const Home = () => {
                             <DropdownMenu
                                 aria-label="Static Actions"
                             >
-                                <DropdownItem key="settings" startContent={<SettingsOutlined />}>
+                                <DropdownItem key="settings" startContent={<AdminPanelSettingsOutlined fontSize="inherit" />}>
                                     Settings
                                 </DropdownItem>
-                                <DropdownItem key="test" onClick={handleTest}>
-                                    Test
-                                </DropdownItem>
+                                {currentMember?.role && roles.indexOf(currentMember.role) >= 1 && (
+                                    <DropdownItem color="danger" key="admin-portal" startContent={<AdminPanelSettingsOutlined fontSize="inherit" />} onPress={() => {nav("/admin-portal")}}>
+                                        Administrative Portal
+                                    </DropdownItem>
+                                )}
                             </DropdownMenu>
 
 
