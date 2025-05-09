@@ -8,7 +8,8 @@ import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
     const nav = useNavigate()
-
+    // get if porcess.env.NODE_ENV is production or development
+    const redirectTo = process.env.NODE_ENV === "production" ? "https://comms-coc-tracker.vercel.app/home" : "http://localhost:5173/home"
     const signInWithDiscord =  async () => {
         const { data, error } = await supabase.auth.signInWithOAuth({
           provider: 'discord',
