@@ -1,9 +1,12 @@
 import { supabase } from "@/types"
 import { useEffect, useState } from "react"
+import useAuth from "./useAuth"
 
 
 const useData = () => {
     const [members, setMembers] = useState<any[]>([])
+    const [tableLoading, setTableLoading] = useState<boolean>(true)
+    const { handleFetchCurrentMember } = useAuth()
 
     const handleFetchMembers = async () => {
         const { data, error } = await supabase
@@ -15,6 +18,7 @@ const useData = () => {
         } else {
             console.log('Members:', data)
             setMembers(data)
+            setTableLoading(false)
         }
     }
     useEffect(() => {
@@ -30,6 +34,7 @@ const useData = () => {
                 (payload) => {
                     console.log('Change received!', payload)
                     handleFetchMembers()
+                    handleFetchCurrentMember()
                 }
             )
             .subscribe()
@@ -40,7 +45,8 @@ const useData = () => {
     }, [])
 
     return {
-        members
+        members,
+        tableLoading,
     }
 }
 

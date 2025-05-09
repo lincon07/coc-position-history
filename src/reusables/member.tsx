@@ -10,11 +10,13 @@ import { createClient } from '@supabase/supabase-js'
 import { useEffect, useState } from "react"
 import { supabase } from "@/types"
 import useData from "@/hooks/useData"
+import ReactConfetti from "react-confetti"
 
 const Members = () => {
     const memberModal = useDisclosure();
     const [selectedMember, setSelectedMember] = useState<any>(null)
     const { members } = useData()
+    const [confetti, setConfetti] = useState(false)
 
     const handleOpenDetails = (member: any) => {
         memberModal.onOpen()
@@ -52,12 +54,12 @@ const Members = () => {
                                                 isPressable
                                                 onPress={() => { handleOpenDetails(member) }}
                                                 style={{
-                                                    minWidth: '20%',
-                                                    maxWidth: '30%',
-                                                    padding: '1rem',
+                                                    minWidth: '15%',
+                                                    maxWidth: '15%',
                                                     borderRadius: '1rem',
-                                                    backdropFilter: 'blur(8px)',
-                                                    WebkitBackdropFilter: 'blur(8px)',
+                                                    backdropFilter: 'blur(50px)',
+                                                    WebkitBackdropFilter: 'blur(20px)',
+                                                    background: 'transparent',
                                                     border: '1px solid rgba(255, 255, 255, 0.1)',
                                                     boxShadow: '0 4px 30px rgba(0, 0, 0, 0.2)',
                                                     transition: 'box-shadow 0.3s ease-in-out',
@@ -67,8 +69,24 @@ const Members = () => {
                                             >
                                                 <CardHeader style={{ justifyContent: 'center' }}>
                                                     <Typography fontFamily={"josefin sans"}>{member?.Name}</Typography>
+                                                    {/* <div
+                                                        style={{
+                                                            position: "absolute",
+                                                            top: 30,
+                                                            right: 0,
+                                                            color: "white",
+                                                            fontSize: "12px",
+                                                            fontWeight: "bold",
+                                                            padding: "5px 10px",
+                                                            transform: "rotate(45deg)",
+                                                            transformOrigin: "top right",
+                                                            zIndex: 1,
+                                                        }}
+                                                    >
+                                                        New
+                                                    </div> */}
                                                 </CardHeader>
-                                                <CardBody className="overflow-visible py-4" style={{ alignItems: 'center' }}>
+                                                <CardBody  className="overflow-visible py-4" style={{ alignItems: 'center' }}>
                                                     <Image
                                                         alt="Card background"
                                                         src={member?.profile}
@@ -103,10 +121,10 @@ const Members = () => {
                         </Stack>
                     </ModalHeader>
                     <Divider />
-                    <ModalBody>
-                        <Stack spacing={3}>
-                            <Stack alignItems="center" spacing={0.5}>
-
+                    <ModalBody style={{width: '100%'}}>
+                    <ReactConfetti style={{ alignSelf: 'center', justifySelf: "center"}}   numberOfPieces={80} width={300} height={300} initialVelocityY={50} run={confetti}/>
+                        <Stack spacing={3} alignItems={'center'} justifyItems={"center"} justifyContent={"center"}>
+                            <Stack alignItems="center" alignSelf={'center'} spacing={0.5} width={'100%'}>
                                 <Typography className="text-default-800 font-bold text-xl tracking-wide">
                                     {selectedMember?.Rank}
                                 </Typography>
