@@ -15,12 +15,12 @@ import { useEffect } from "react";
 import { useNavbar } from "@heroui/navbar";
 import { useNavigate } from "react-router-dom";
 import useData from "@/hooks/useData";
+import Confetti from 'react-confetti'
 
 
 const Home = () => {
     const { currentMember, handleFetchCurrentMember } = useAuth()
     const nav = useNavigate()
-    const { } = useData()
 
     const roles = ["Viewer", "Editor", "Owner"]
     useEffect(() => {
@@ -43,7 +43,7 @@ const Home = () => {
                                 <DropdownItem key="settings" startContent={<AdminPanelSettingsOutlined fontSize="inherit" />}>
                                     Settings
                                 </DropdownItem>
-                                {currentMember?.role && roles.indexOf(currentMember.role) >= 1 && (
+                                {(currentMember?.role === "Editor" || currentMember?.role === "Owner") && (
                                     <DropdownItem color="danger" key="admin-portal" startContent={<AdminPanelSettingsOutlined fontSize="inherit" />} onPress={() => { nav("/admin-portal") }}>
                                         Administrative Portal
                                     </DropdownItem>
