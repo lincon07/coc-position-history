@@ -142,8 +142,7 @@ const AdminPortal = () => {
                                             fullWidth
                                             label="Role"
                                             selectedKeys={
-                                                [updates[member.discordID]?.role || member.role] ? [updates[member.discordID]?.role || member.role] :
-                                                    [member.role]
+                                                [updates[member.discordID]?.role || member.role]
                                             }
                                             onSelectionChange={(value) => {
                                                 handleChange(member.discordID, "role", value.anchorKey);
